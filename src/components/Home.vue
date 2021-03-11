@@ -12,7 +12,6 @@
     </p>
 
 
-    {{location}}
     <div class="input-group mb-3 p-3">
       <input
         v-model="address"
@@ -26,17 +25,29 @@
         Search
       </button>
     </div>
+
+    <div class="spinner-border" role="status" v-if="!loaded">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <Map :sites="sites">
+
+    </Map>
+    
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import { API_KEY } from "../commons.js";
+import { API_KEY, PORT } from "../commons.js";
+import Map from './Map.vue';
 export default {
+  components: {Map},
   data() {
     return {
       address: "",
-      location
+      location: {},
+      sites: [], 
+      loaded: true
     };
   },
   methods: {
@@ -51,8 +62,22 @@ export default {
         )
         .then((res) => {
           this.location = res.data[0];
+          this.loaded = false;
+          this.loadSites();
         });
     },
+    loadSites(){
+      const {location} = this;
+      const longitude = location.lon;
+      const latitude = location.lat;
+      axios
+        .get(
+          `http://localhost:${PORT}/sites?longitude=${longitude}&latitude=${latitude}`).then(res=>{
+            this.sites = res.data;
+            this.loaded = true;
+          });
+      
+    }
   },
 };
 </script>

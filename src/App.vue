@@ -12,7 +12,13 @@ import Navbar from './components/Navbar.vue'
 export default {
   components: { Navbar },
   name: 'App',
-  
+  watch: {
+    $route(route){
+      if(!route.name){
+        this.$router.replace({name: "home"});
+      }
+    }
+  }
 }
 </script>
 

@@ -21,14 +21,14 @@ export default {
       type: Array,
     },
   },
-  data(){
-      return {
-          loaded: true
-      }
+  data() {
+    return {
+      loaded: true,
+    };
   },
   methods: {
     init() {
-        this.loaded = false;
+      this.loaded = false;
       const { sites } = this;
       if (this.map) this.map.remove();
 
@@ -48,25 +48,26 @@ export default {
         }
       ).addTo(mymap);
 
-      sites.forEach((site) => {
+      for (const site of sites) {
         const marker = L.marker([site.latitude, site.longitude], {
           title: site.name,
         }).addTo(mymap);
+        const short = site.short_description.replace("<p>", "").replace("</p>", "");
         marker
           .bindPopup(
             `<div class="card">
-              <img class="card-img-top" src="${site.image_url}" alt="Card image cap" style="width:100px; height: 100px; margin:auto">
+              <img class="card-img-top" src="${site.image_url}" alt="Card image cap">
             <div class="card-body">
               <h5 class="card-title">${site.site}</h5>
               <p class="card-text"><i class="fas fa-map-marker"></i> ${site.location}</p>
-              <div class="card-text text-truncate">${site.short_description}</div>
+              <p class="card-text text-truncate">${short}</p>
 
               <a class="card-link" href="#/site/${site._id}">Open</a>
           </div>
             </div>`
           )
           .openPopup();
-      });
+      }
       this.loaded = true;
     },
   },
@@ -82,6 +83,12 @@ export default {
 </script>
 
 <style>
+
+.card-img-top{
+  width:100px;
+  height: 100px;
+  margin:auto
+}
 .card {
   height: 400;
 }

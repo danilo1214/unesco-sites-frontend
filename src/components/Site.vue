@@ -1,14 +1,14 @@
 <template>
   <div class="container p-5">
-    <div class="row">
-      <div class="col-3">
+    <div class="row shadow p-5">
+      <div class="col-3" style="width: 18rem">
         <img class="site-image shadow" :src="site.image_url" /> <br />
         <div>
           <i class="fas fa-map-marker mt-5"></i> {{ site.location }},
           {{ site.states }}
         </div>
         <div><i class="fas fa-globe-europe mt-2"></i> {{ site.http_url }}</div>
-        <div><i class="fas fa-th-large mt-2"></i> {{ site.category }}</div>
+        <div><i class="fas fa-th-large mt-2 m-b-5"></i> {{ site.category }}</div>
       </div>
 
       <div class="col-9">
@@ -19,7 +19,7 @@
         </p>
         <button
           type="button"
-          class="btn btn-primary"
+          class="btn btn-primary shadow"
           data-bs-toggle="modal"
           data-bs-target="#exampleModal"
         >
@@ -67,7 +67,7 @@
           <div class="modal-footer">
             <button
               type="button"
-              class="btn btn-secondary"
+              class="btn btn-secondary shadow"
               data-bs-dismiss="modal"
             >
               Close
@@ -111,6 +111,9 @@ export default {
 </script>
 
 <style scoped>
+button{
+  border-radius: 2px !important;
+}
 .site-image {
   width: auto;
   height: 100px;

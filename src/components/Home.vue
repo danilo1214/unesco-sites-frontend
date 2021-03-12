@@ -1,6 +1,7 @@
 <template>
   <div class="container mt-5 text-center">
-    <h1>Unesco Sites</h1>
+    <div class="shadow p-5">
+      <h1>Unesco Sites</h1>
     <br />
 
     <p>
@@ -11,25 +12,28 @@
       locations
     </p>
 
-
     <div class="input-group mb-3 p-3">
       <input
         v-model="address"
         type="text"
-        class="form-control"
+        class="form-control shadow"
         placeholder="Your address"
         aria-label="Your address"
         aria-describedby="button-addon2"
       />
-      <button class="btn btn-primary" type="button" id="button-addon2" @click="loadLocation">
+      <button class="btn btn-primary shadow" type="button" id="button-addon2" @click="loadLocation">
         Search
       </button>
     </div>
+    </div>
+
+
+    
 
     <div class="spinner-border" role="status" v-if="!loaded">
       <span class="sr-only">Loading...</span>
     </div>
-    <Map :sites="sites">
+    <Map :sites="sites" class="mt-5">
 
     </Map>
     

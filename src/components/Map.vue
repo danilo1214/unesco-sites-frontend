@@ -27,7 +27,7 @@ export default {
     };
   },
   methods: {
-    init() {
+    async init() {
       this.loaded = false;
       const { sites } = this;
       if (this.map) this.map.remove();
@@ -53,7 +53,8 @@ export default {
           title: site.name,
         }).addTo(mymap);
         const short = site.short_description.replace("<p>", "").replace("</p>", "");
-        marker
+        console.log("ej brat site sum");
+        await marker
           .bindPopup(
             `<div class="card">
               <img class="card-img-top" src="${site.image_url}" alt="Card image cap">

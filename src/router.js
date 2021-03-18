@@ -6,6 +6,11 @@ import Site from "./components/Site";
 
 const routes = [
     {
+        name: "default",
+        path: "/",
+        component: Home
+    },
+    {
         name: "home",
         path: "/home",
         component: Home

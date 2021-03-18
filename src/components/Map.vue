@@ -53,7 +53,6 @@ export default {
           title: site.name,
         }).addTo(mymap);
         const short = site.short_description.replace("<p>", "").replace("</p>", "");
-        console.log("ej brat site sum");
         await marker
           .bindPopup(
             `<div class="card">

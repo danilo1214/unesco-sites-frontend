@@ -1,5 +1,5 @@
 <template>
-  <div class="container p-5">
+  <div class="container m-5" v-if="loaded">
     <div class="row shadow p-5">
       <div class="col-3" style="width: 18rem">
         <img class="site-image shadow" :src="site.image_url" /> <br />
@@ -7,7 +7,7 @@
           <i class="fas fa-map-marker mt-5"></i> {{ site.location }},
           {{ site.states }}
         </div>
-        <div><i class="fas fa-globe-europe mt-2"></i> {{ site.http_url }}</div>
+        <div><i class="fas fa-globe-europe mt-2"></i> <a class="primary" :href="site.http_url">{{ site.http_url }}</a></div>
         <div><i class="fas fa-th-large mt-2 m-b-5"></i> {{ site.category }}</div>
       </div>
 
@@ -77,22 +77,31 @@
       </div>
     </div>
   </div>
+
+  <div class="container m-auto" v-else>
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
 </template>
 
 <script>
 import axios from "axios";
-import { PORT } from "../commons";
+import { SERVER } from "../commons";
 export default {
   data() {
     return {
       site: {},
+      loaded: true
     };
   },
   methods: {
     init() {
       const { id } = this.$route.params;
-      axios.get(`http://localhost:${PORT}/site/${id}`).then((res) => {
+      this.loaded = false;
+      axios.get(`${SERVER}/site/${id}`).then((res) => {
         this.site = res.data;
+        this.loaded = true;
       });
     },
     removePTags(text) {
@@ -111,6 +120,9 @@ export default {
 </script>
 
 <style scoped>
+a{
+  text-decoration: none;
+}
 button{
   border-radius: 2px !important;
 }
